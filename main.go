@@ -1,10 +1,14 @@
 package main
 
-import rl "github.com/gen2brain/raylib-go/raylib"
+import (
+	"fmt"
+
+	rl "github.com/gen2brain/raylib-go/raylib"
+)
 
 var (
-	running                   bool
-	screenWidth, screenHeight int32
+	running                               bool
+	screenWidth, screenHeight, frameCount int32
 
 	// background \\
 	bkgColour        rl.Color
@@ -16,7 +20,7 @@ var (
 
 type Player struct {
 	*Sprite
-	speed, dir int32
+	speed, dir, playerFrame int32
 }
 
 type Sprite struct {
@@ -37,11 +41,23 @@ func input() {
 }
 
 func update() {
+	frameCount++
+	if frameCount >= 60 {
+		frameCount = 0
+	}
 	running = !rl.WindowShouldClose()
+	if frameCount%12 == 0 {
+		player.playerFrame++
+		if player.playerFrame >= 6 {
+			player.playerFrame = 0
+		}
+		fmt.Println(player.playerFrame)
+	}
 	screenWidth = 1280
 	screenHeight = 720
 	player.dest.X += float32(player.speed) * float32(player.dir)
 	player.dir = 0
+	player.source.X = float32(56 * player.playerFrame)
 }
 
 func draw() {
@@ -94,7 +110,7 @@ func init() {
 			rl.LoadTexture("res/character/char_blue.png"),
 			rl.NewRectangle(0, 0, 168, 168),
 			rl.NewRectangle(0, 0, 56, 56)},
-		10, 0}
+		10, 0, 0}
 }
 
 func quit() {

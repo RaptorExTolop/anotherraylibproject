@@ -10,6 +10,9 @@ Version Dev 0.0.0:
 Version Dev 0.0.1:
     Set up some player movement, thats it
 
+Version Dev 0.0.2:
+    Made the idle animation, but now I have no idea. Wait, it just clicked.
+
 TODO:
-    Complete the player struct
+    Set up animations
     Set up collisions
