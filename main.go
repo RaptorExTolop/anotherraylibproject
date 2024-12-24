@@ -9,12 +9,15 @@ var (
 	// background \\
 	bkgColour        rl.Color
 	bkg1, bkg2, bkg3 Sprite
+
+	// player \\
+	player Player
 )
 
-// type Player struct {
-// 	*Sprite
-// 	speed, dir int32
-// }
+type Player struct {
+	*Sprite
+	speed, dir int32
+}
 
 type Sprite struct {
 	X, Y         int32
@@ -24,12 +27,21 @@ type Sprite struct {
 
 const ()
 
-func input() {}
+func input() {
+	if rl.IsKeyDown(rl.KeyA) || rl.IsKeyDown(rl.KeyLeft) {
+		player.dir--
+	}
+	if rl.IsKeyDown(rl.KeyD) || rl.IsKeyDown(rl.KeyLeft) {
+		player.dir++
+	}
+}
 
 func update() {
 	running = !rl.WindowShouldClose()
 	screenWidth = 1280
 	screenHeight = 720
+	player.dest.X += float32(player.speed) * float32(player.dir)
+	player.dir = 0
 }
 
 func draw() {
@@ -40,6 +52,9 @@ func draw() {
 	rl.DrawTexturePro(bkg1.sprite, bkg1.source, bkg1.dest, rl.NewVector2(0, 0), 0, rl.RayWhite)
 	rl.DrawTexturePro(bkg2.sprite, bkg2.source, bkg2.dest, rl.NewVector2(0, 0), 0, rl.RayWhite)
 	rl.DrawTexturePro(bkg3.sprite, bkg3.source, bkg3.dest, rl.NewVector2(0, 0), 0, rl.RayWhite)
+
+	// player
+	rl.DrawTexturePro(player.sprite, player.source, player.dest, rl.NewVector2(0, 0), 0, rl.RayWhite)
 
 	rl.DrawFPS(0, 0)
 	rl.EndDrawing()
@@ -73,6 +88,13 @@ func init() {
 		rl.LoadTexture("res/background/background_layer_3.png"),
 		rl.NewRectangle(0, 0, float32(screenWidth), float32(screenHeight)),
 		rl.NewRectangle(0, 0, 320, 180)}
+	player = Player{
+		&Sprite{
+			0, 0,
+			rl.LoadTexture("res/character/char_blue.png"),
+			rl.NewRectangle(0, 0, 168, 168),
+			rl.NewRectangle(0, 0, 56, 56)},
+		10, 0}
 }
 
 func quit() {

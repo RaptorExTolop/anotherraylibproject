@@ -7,6 +7,9 @@ Version Dev 0.0.0:
     set up the backgrounds
     started to make the player struct
 
-    TODO:
-        Complete the player struct
-        Set up collisions
+Version Dev 0.0.1:
+    Set up some player movement, thats it
+
+TODO:
+    Complete the player struct
+    Set up collisions
