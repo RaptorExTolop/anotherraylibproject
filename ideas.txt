@@ -1,1 +1,0 @@
-make a seperate playerframe thingy and then use that one for the longer ones, having the reset line of code be slightly longer so instead of ```if frame >= 6``` you would do ```if frame >= 8```
